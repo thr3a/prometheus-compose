@@ -3,8 +3,8 @@ groups:
     rules:
       - alert: scrape_failed
         expr: up == 0
-        for: 10s
+        for: 10s # 10秒失敗したらエラー扱い
         labels:
-          severtity: error
-        annotatios:
+          severity: error
+        annotations:
           summary: monitoring target failed

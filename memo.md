@@ -14,4 +14,13 @@ check node_memory_MemTotal_bytes
 
 alertmanagerの通知先をレシーバーという
 
+prom
+http://ubuntu02:9090/
+
+mailhog
+http://ubuntu02:8025/
+
+alertmanager
+http://ubuntu02:9093/
+
 

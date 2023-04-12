@@ -1,0 +1,13 @@
+modules:
+  ssh_banner:
+    prober: tcp
+    tcp:
+      query_response:
+        - expect: "^SSH-2.0-"
+  # nginx_banner:
+  #   prober: http
+  #   http:
+  #     method: GET
+  #     # 以下の文字列がなければアラートとする
+  #     fail_if_body_not_matches_regexp:
+  #       - '"nginx": "ok"'

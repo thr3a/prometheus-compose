@@ -1,6 +1,9 @@
 ---
 version: '3'
 services:
+  ####################
+  # Prometheus
+  ####################
   prometheus:
     image: prom/prometheus:latest
     ports:
@@ -8,16 +11,25 @@ services:
     volumes:
       - './prometheus.yml:/etc/prometheus/prometheus.yml'
       - './alert_rules.yml:/etc/prometheus/alert_rules.yml'
+  ####################
+  # Alertmanager
+  ####################
   alertmanager:
     image: prom/alertmanager:v0.23.0
     ports:
       - '9093:9093'
     volumes:
       - ./alertmanager.yml:/etc/alertmanager/alertmanager.yml
+  ####################
+  # Mailhog
+  ####################
   mailhog:
     image: mailhog/mailhog:v1.0.1
     ports:
       - '8025:8025'
+  ####################
+  # node-exporter
+  ####################
   node-exporter:
     image: prom/node-exporter:latest
     volumes:
@@ -31,3 +43,14 @@ services:
       - '--collector.filesystem.mount-points-exclude=^/(sys|proc|dev|host|etc)($$|/)'
     # ports:
     #   - '9100:9100'
+  ####################
+  # blackbox-exporter
+  ####################
+  blackbox-exporter:
+    image: prom/blackbox-exporter
+    # ports:
+    #   - 9115:9115
+    volumes:
+      - ./blackbox-exporter:/etc/blackbox_exporter
+    entrypoint: ['/bin/blackbox_exporter', '--config.file=/etc/blackbox_exporter/config.yaml']
+    restart: always
